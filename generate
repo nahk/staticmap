@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+<?php
+$url = 'http://maps.googleapis.com/maps/api/staticmap?';
+
+$parameters = array(
+    'center' => 'Purpan, Toulouse, FR',
+    'zoom' => 15,
+    'size' => '1000x400',
+    'sensor' => 'false',
+);
+
+echo $url . http_build_query($parameters);
+echo "\n";
