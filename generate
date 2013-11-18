@@ -1,5 +1,7 @@
 #!/usr/bin/env php
 <?php
+// Doc. : https://developers.google.com/maps/documentation/staticmaps/
+
 $url = 'http://maps.googleapis.com/maps/api/staticmap?';
 
 $parameters = array(
