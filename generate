@@ -2,14 +2,85 @@
 <?php
 // Doc. : https://developers.google.com/maps/documentation/staticmaps/
 
-$url = 'http://maps.googleapis.com/maps/api/staticmap?';
+$apiURL = 'http://maps.googleapis.com/maps/api/staticmap?';
 
 $parameters = array(
-    'center' => 'Purpan, Toulouse, FR',
-    'zoom' => 15,
-    'size' => '1000x400',
-    'sensor' => 'false',
+    'center'  => '43.616815,1.412166',
+    // 'center'  => 'Purpan, Toulouse, FR',
+    'zoom'    => 13,
+    'maptype' => 'roadmap',
+
+    'size'    => '640x350',
+    'scale'   => 2,
+
+    'markers' => '',
+
+    'sensor'  => 'false',
 );
 
-echo $url . http_build_query($parameters);
-echo "\n";
+$markers = array(
+    array(
+        'color' => 'red',
+        'label' => 'A',
+        'lat'   => 43.609331,
+        'lng'   => 1.400587,
+    ),
+    array(
+        'color' => 'blue',
+        'label' => '1',
+        'lat'   => 43.605072,
+        'lng'   => 1.446875,
+    ),
+    array(
+        'color' => 'green',
+        'label' => '2',
+        'lat'   => 43.630687,
+        'lng'   => 1.380256,
+    ),
+    array(
+        'color' => 'yellow',
+        'label' => '3',
+        'lat'   => 43.606228,
+        'lng'   => 1.400358,
+    ),
+);
+
+if ( !$markers ) {
+    unset($parameters['markers']);
+
+} else {
+
+    foreach ($markers as $k => $marker) {
+
+        $markerURI  = '';
+
+        // Size
+        if ( isset( $marker['size'] ) )
+            $markerURI .= 'color:'.$marker['size'].'|';
+
+        // Color
+        if ( isset( $marker['color'] ) )
+            $markerURI .= 'color:'.$marker['color'].'|';
+
+        // Label
+        if ( isset( $marker['label'] ) )
+            $markerURI .= 'label:'.$marker['label'].'|';
+
+        // Coordinates (lat & lng)
+        $markerURI .= $marker['lat'].','.$marker['lng'];
+
+        $markers[$k] = $markerURI;
+
+    }
+
+    // $parameters['markers'] = implode('&markers=', $markers);
+    $parameters['markers'] = $markers;
+
+}
+
+$parametersURI = http_build_query($parameters);
+$parametersURI = preg_replace('/\%5B([0-9]+)\%5D/i', '', $parametersURI); // To-do #2
+
+$url = $apiURL . $parametersURI;
+
+echo $url . "\n";

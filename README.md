@@ -16,7 +16,12 @@ shell:
     
     ./generate
 
+On Mac OS X, you can also copy the output in your clipboard using `pbcopy`:
+
+    ./generate | pbcopy 
+
 To-do
 -----
 
-Put the `$parameters` array in a dedicated config file.
+* Put the `$parameters` array in a dedicated config file.
+* Better manage the multi-marker situation.
