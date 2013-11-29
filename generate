@@ -56,7 +56,7 @@ if ( !$markers ) {
 
         // Size
         if ( isset( $marker['size'] ) )
-            $markerURI .= 'color:'.$marker['size'].'|';
+            $markerURI .= 'size:'.$marker['size'].'|';
 
         // Color
         if ( isset( $marker['color'] ) )
